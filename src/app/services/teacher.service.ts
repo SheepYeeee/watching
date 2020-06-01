@@ -60,8 +60,17 @@ export class TeacherService {
    *
    * @memberof TeacherService
    */
-  cheatpic() {
-    return this.http.get(`${environment.baseUrl}/teacher/cheatpic`);
+  examLog() {
+    return this.http.get(`${environment.baseUrl}/teacher/examLog`);
+  }
+
+  /**
+   * 教師端查看考場名單
+   *
+   * @memberof TeacherService
+   */
+  examStudentList() {
+    return this.http.get(`${environment.baseUrl}/teacher/examStudentList`);
   }
 
   /**
