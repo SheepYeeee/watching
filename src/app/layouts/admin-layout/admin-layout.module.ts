@@ -22,6 +22,7 @@ import { EnterExamComponent } from 'app/pages/enterExam/enterExam.component';
 import { TeacherExamScreenComponent } from 'app/pages/teacherExamScreen/teacherExamScreen.component';
 import { StudentRecordComponent } from 'app/pages/studentRecord/studentRecord.component';
 import { TeacherRecordComponent } from 'app/pages/teacherRecord/teacherRecord.component';
+import { StudentExamScreenComponent } from 'app/pages/studentExamScreen/studentExamScreen.component';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { TeacherRecordComponent } from 'app/pages/teacherRecord/teacherRecord.co
     StudentRecordComponent,
     TeacherRecordComponent,
     TeacherExamScreenComponent,
+    StudentExamScreenComponent,
     UserComponent,
     CraftPortfolioComponent,
     AddCraftPortfolioComponent,
