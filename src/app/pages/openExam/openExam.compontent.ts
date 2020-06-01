@@ -66,11 +66,11 @@ export class OpenExamComponent implements OnInit {
     this.teacherService.openExam(examInfo)
       .subscribe(
         (data: any) => {
-          localStorage.setItem('examID', this.teacher.examID);
-          localStorage.setItem('examStartTime', this.teacher.examStartTime);
-          localStorage.setItem('examEndTime', this.teacher.examEndTime);
+          localStorage.setItem('examId', data.message.examID);
+          localStorage.setItem('examStartTime', data.message.examStartTime);
+          localStorage.setItem('examEndTime', data.message.examEndTime);
           this.openMessageModal(`${data.message.message}，
-          你的考場ID是${data.message.examID} 考試時間為${data.message.examStartTime}~${data.message.examEndTime}`);
+          你的考場ID是${data.message.examID}，考試時間為${data.message.examStartTime}~${data.message.examEndTime}`);
 
           setTimeout(() => {
             this.router.navigate(['teacherExamScreen']);
