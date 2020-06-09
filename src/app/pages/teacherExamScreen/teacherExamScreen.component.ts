@@ -54,7 +54,7 @@ export class TeacherExamScreenComponent implements OnInit, OnDestroy {
         }
 
         // 監聽考場學生名單
-        this.studentList = interval(500)
+        this.studentList = interval(1000)
           .pipe(switchMap((_: number) => this.teacherService.examStudentList()))
           .subscribe(
             (data: any) => console.log(data),
@@ -62,7 +62,7 @@ export class TeacherExamScreenComponent implements OnInit, OnDestroy {
           );
 
         // 監聽考場log
-        this.LogList = interval(500)
+        this.LogList = interval(1000)
           .pipe(switchMap((_: number) => this.teacherService.examLog()))
           .subscribe(
             (data: any) => console.log(data),
