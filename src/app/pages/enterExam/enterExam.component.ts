@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StudentService } from 'app/services/student.service';
-import { environment } from 'environments/environment';
+import { environment } from 'environments/environment.prod';
 import { Student } from 'app/models/student.model';
 import { Modal } from 'app/models/modal.model';
 import { ModalService } from 'app/services/modal.service';
@@ -60,6 +60,7 @@ export class EnterExamComponent implements OnInit {
         (data: any) => {
           this.student.examToken = data;
           localStorage.setItem(`${environment.keyOfExamToken}`, this.student.examToken);
+          localStorage.setItem(`${environment.keyOfTeacherIp}`, this.f.teacherIP.value);
           this.openMessageModal(`成功進入考場，你的考場TOKEN是${this.student.examToken}`);
           // location.reload();
         }
