@@ -55,5 +55,14 @@ export class StudentService {
     return this.http.get(`${environment.baseUrl}/student/recordList`);
   }
 
+  /**
+   * 學生切換靈敏度
+   * @memberof StudentService
+   * @param examInfo 
+   */
+  setSensitivity(examInfo: object) {
+    return this.http.get(`${environment.baseUrl}/student/setSensitivity`, examInfo);
+  }
+
 
 }

@@ -67,6 +67,7 @@ export class OpenExamComponent implements OnInit {
       .subscribe(
         (data: any) => {
           localStorage.setItem('examId', data.message.examID);
+          localStorage.setItem('examName', data.message.examName);
           localStorage.setItem('examStartTime', data.message.examStartTime);
           localStorage.setItem('examEndTime', data.message.examEndTime);
           this.openMessageModal(`${data.message.message}，
