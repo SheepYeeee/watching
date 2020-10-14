@@ -25,7 +25,7 @@ export class EnterExamComponent implements OnInit {
   enterExamForm: any = this.fb.group({
     studentName: ['', Validators.required],
     studentId: ['', Validators.required],
-    studentIP: ['', Validators.required],
+    // studentIP: ['', Validators.required],
     teacherIP: ['', Validators.required]
   });
 
@@ -43,14 +43,16 @@ export class EnterExamComponent implements OnInit {
   get f() { return this.enterExamForm.controls; }
 
 
-
+  /**
+   * 進入考場
+   */
   enterExam() {
 
     /** 進入考場所傳入的資料 */
     const examInfo: object = {
       studentName: this.f.studentName.value,
       studentId: this.f.studentId.value,
-      studentIP: this.f.studentIP.value,
+      // studentIP: this.f.studentIP.value,
       teacherIP: this.f.teacherIP.value,
     }
 
@@ -61,6 +63,7 @@ export class EnterExamComponent implements OnInit {
           this.student.examToken = data;
           localStorage.setItem(`${environment.keyOfExamToken}`, this.student.examToken);
           localStorage.setItem('examId', data.examID);
+          localStorage.setItem('examName', data.examName);
           localStorage.setItem('examStartTime', data.examStartTime);
           localStorage.setItem('examEndTime', data.examEndTime);
 
