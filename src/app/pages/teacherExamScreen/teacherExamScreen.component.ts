@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { TeacherService } from 'app/services/teacher.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { environment } from 'environments/environment.prod';
 import { ExamInfo } from 'app/models/examInfo.model';
+import { Modal } from 'app/models/modal.model';
+import { ModalService } from 'app/services/modal.service';
+import { takeUntil, switchMap } from 'rxjs/operators';
+import { Subject, Observable, interval } from 'rxjs';
 
 
 
@@ -13,9 +17,14 @@ import { ExamInfo } from 'app/models/examInfo.model';
     templateUrl: 'teacherExamScreen.component.html'
 })
 
-export class TeacherExamScreenComponent implements OnInit {
+export class TeacherExamScreenComponent implements OnInit, OnDestroy {
 
     tableData: ExamInfo;
+
+    studentList: any;
+    LogList: any;
+    destroy$: Subject<boolean> = new Subject<boolean>();
+    destroyLog$: Subject<boolean> = new Subject<boolean>();
 
     /** 老師延長考試的表單 */
     extendExamForm: any = this.fb.group({
@@ -25,6 +34,7 @@ export class TeacherExamScreenComponent implements OnInit {
     constructor(
       private teacherService: TeacherService,
       private fb: FormBuilder,
+      private modalService: ModalService
     ) { }
 
     ngOnInit() {
@@ -42,18 +52,35 @@ export class TeacherExamScreenComponent implements OnInit {
                   studentId: '14725836', timestamp: '2020/06/06 13:37', probability: '30%'}
             ]
         }
+
+        // 監聽考場學生名單
+        this.studentList = interval(500)
+          .pipe(switchMap((_: number) => this.teacherService.examStudentList()))
+          .subscribe(
+            (data: any) => console.log(data),
+            (error: any) => console.log(error)
+          );
+
+        // 監聽考場log
+        this.LogList = interval(500)
+          .pipe(switchMap((_: number) => this.teacherService.examLog()))
+          .subscribe(
+            (data: any) => console.log(data),
+            (error: any) => console.log(error)
+          );
+
     }
 
-    /**
-     * 教師端監考畫面前端監聽後端log資料
-     *
-     * @memberof TeacherExamScreenComponent
-     */
-    cheatpic() {
-      this.teacherService.cheatpic().subscribe((responseBody) => {
-        console.log(responseBody);
-      });
+    ngOnDestroy() {
+      this.destroy$.next(true);
+      // Unsubscribe from the subject
+      this.destroy$.unsubscribe();
+
+      this.destroyLog$.next(true);
+      // Unsubscribe from the subject
+      this.destroyLog$.unsubscribe();
     }
+
 
     // 幫Form取個簡短的代號
     get ef() { return this.extendExamForm.controls; }
@@ -73,7 +100,9 @@ export class TeacherExamScreenComponent implements OnInit {
       this.teacherService.extendExam(examInfo)
       .subscribe(
         (data: any) => {
-          console.log(`${data.message}`)
+          localStorage.setItem('examEndTime', this.ef.examEndTime.value);
+          this.openMessageModal(`${data.message}，
+          考試時間變更為${localStorage.getItem('examStartTime')}~${localStorage.getItem('examEndTime')}`);
         }
       )
     }
@@ -84,17 +113,41 @@ export class TeacherExamScreenComponent implements OnInit {
      * @memberof TeacherExamScreenComponent
      */
     closeExam() {
+
+      const endTime = new Date();
+
       /** 老師延長考試所傳入的資料 */
       const examInfo: any = {
         examId: localStorage.getItem(`${environment.examId}`),
-        examEndTime: new Date().toJSON('yyyy-MM-dd HH:mm'),
+        examEndTime:  (endTime.getHours().toString()) + ':' + (endTime.getMinutes().toString()),
       }
+      console.log(examInfo.examEndTime);
       // 關閉考場
       this.teacherService.closeExam(examInfo)
       .subscribe(
         (data: any) => {
-          console.log(`${data.message}`)
+          localStorage.setItem('examEndTime', (endTime.getHours().toString()) + ':' + (endTime.getMinutes().toString()));
+          this.openMessageModal(`${data.message}`);
         }
       )
+
     }
+
+
+  /**
+   * 開啟 messageModal
+   *
+   * @param {string} message
+   * @memberof HttpErrorInterceptor
+   */
+  openMessageModal(message: string) {
+    /** modaleOptions */
+    const modalOptions: Modal = {
+        icon: 'icon',
+        message: message
+    }
+
+    // 開啟 Modal
+    this.modalService.open(modalOptions);
+  }
 }

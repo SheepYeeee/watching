@@ -60,11 +60,14 @@ export class EnterExamComponent implements OnInit {
         (data: any) => {
           this.student.examToken = data;
           localStorage.setItem(`${environment.keyOfExamToken}`, this.student.examToken);
-          localStorage.setItem(`${environment.keyOfTeacherIp}`, this.f.teacherIP.value);
-          this.openMessageModal(`成功進入考場，你的考場TOKEN是${this.student.examToken}`);
+          localStorage.setItem('examId', data.examID);
+          localStorage.setItem('examStartTime', data.examStartTime);
+          localStorage.setItem('examEndTime', data.examEndTime);
+
+          this.openMessageModal(`成功進入考場，考試時間為${data.examStartTime} ~ ${data.examEndTime}`);
           // location.reload();
         }
-      ),error => { }
+      )
   }
 
   /**

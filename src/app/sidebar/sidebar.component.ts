@@ -6,6 +6,7 @@ export const ROUTES: RouteInfo[] = [
     // { path: '/user', title: '個人資料', icon: 'nc-badge', class: ''},
     { path: '/openExam', title: '開啟考場', icon: 'nc-hat-3', class: '' },
     { path: '/enterExam', title: '進入考場', icon: 'nc-user-run', class: '' },
+    { path: '/studentExamScreen', title: '學生端監考畫面', icon: 'nc-camera-compact', class: '' },
     { path: '/teacherExamScreen', title: '教師端監考畫面', icon: 'nc-camera-compact', class: '' },
     { path: '/studentRecord', title: '學生考試紀錄', icon: 'nc-paper', class: '' },
     { path: '/teacherRecord', title: '老師考試紀錄', icon: 'nc-paper', class: '' },
