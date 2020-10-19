@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
@@ -15,14 +14,14 @@ import { NotificationsComponent }   from '../../pages/notifications/notification
 import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CraftPortfolioComponent } from 'app/pages/craftList/craftPortfolio.component';
-import { AddCraftPortfolioComponent } from 'app/pages/addCraftPortfolio/addCraftPortfolio.component';
-import { OpenExamComponent } from 'app/pages/openExam/openExam.compontent';
-import { EnterExamComponent } from 'app/pages/enterExam/enterExam.component';
-import { TeacherExamScreenComponent } from 'app/pages/teacherExamScreen/teacherExamScreen.component';
-import { StudentRecordComponent } from 'app/pages/studentRecord/studentRecord.component';
-import { TeacherRecordComponent } from 'app/pages/teacherRecord/teacherRecord.component';
-import { StudentExamScreenComponent } from 'app/pages/studentExamScreen/studentExamScreen.component';
+import { AddCraftPortfolioComponent } from '../../pages/addCraftPortfolio/addCraftPortfolio.component';
+import { OpenExamComponent } from '../../pages/openExam/openExam.compontent';
+import { EnterExamComponent } from '../../pages/enterExam/enterExam.component';
+import { TeacherExamScreenComponent } from '../../pages/teacherExamScreen/teacherExamScreen.component';
+import { StudentRecordComponent } from '../../pages/studentRecord/studentRecord.component';
+import { TeacherRecordComponent } from '../../pages/teacherRecord/teacherRecord.component';
+import { StudentExamScreenComponent } from '../../pages/studentExamScreen/studentExamScreen.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -41,7 +40,6 @@ import { StudentExamScreenComponent } from 'app/pages/studentExamScreen/studentE
     TeacherExamScreenComponent,
     StudentExamScreenComponent,
     UserComponent,
-    CraftPortfolioComponent,
     AddCraftPortfolioComponent,
     TableComponent,
     UpgradeComponent,

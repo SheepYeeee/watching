@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { StudentService } from 'app/services/student.service';
+import { StudentService } from '../../services/student.service';
 
 interface MyVideoElement extends HTMLVideoElement {
   requestPictureInPicture(): any;
@@ -11,7 +11,6 @@ interface MyDocument extends Document {
 
 @Component({
   selector: 'app-studentExamScreen',
-  moduleId: module.id,
   templateUrl: 'studentExamScreen.component.html'
 })
 

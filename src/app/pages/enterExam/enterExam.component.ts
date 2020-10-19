@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { StudentService } from 'app/services/student.service';
-import { environment } from 'environments/environment.prod';
-import { Student } from 'app/models/student.model';
-import { Modal } from 'app/models/modal.model';
-import { ModalService } from 'app/services/modal.service';
+import { StudentService } from '../../services/student.service';
+import { environment } from '../../../environments/environment.prod';
+import { Student } from '../../models/student.model';
+import { Modal } from '../../models/modal.model';
+import { ModalService } from '../../services/modal.service';
 
 
 @Component({
     selector: 'app-enterexam',
-    moduleId: module.id,
     templateUrl: 'enterExam.component.html'
 })
 

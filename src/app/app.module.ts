@@ -1,5 +1,4 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -25,7 +24,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 import { AuthService } from './services/auth.service';
-import { environment } from 'environments/environment.prod';
+import { environment } from '../environments/environment.prod';
 
 import { ModalService } from './services/modal.service';
 import { TeacherService } from './services/teacher.service';

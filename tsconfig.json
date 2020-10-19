@@ -4,8 +4,11 @@
     "downlevelIteration": true,
     "importHelpers": true,
     "outDir": "./dist/out-tsc",
-    "types": ["jquery","bootstrap"],
+    "types": ["jquery","bootstrap","node"],
     "baseUrl": "src",
+    "paths": {
+      "*": ["src/*"]
+    },
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",

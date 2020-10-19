@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DataRows } from 'app/models/recordList.model';
-import { StudentService } from 'app/services/student.service';
-import { TeacherService } from 'app/services/teacher.service';
+import { DataRows } from '../../models/recordList.model';
+import { StudentService } from '../../services/student.service';
+import { TeacherService } from '../../services/teacher.service';
 
 @Component({
     selector: 'app-teacher-record',
-    moduleId: module.id,
     templateUrl: 'teacherRecord.component.html'
 })
 

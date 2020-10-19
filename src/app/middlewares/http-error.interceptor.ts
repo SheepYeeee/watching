@@ -8,9 +8,9 @@ import {
 import { Observable, of, throwError} from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Router, Route } from '@angular/router';
-import { environment } from 'environments/environment.prod';
-import { Modal } from 'app/models/modal.model';
-import { ModalService } from 'app/services/modal.service';
+import { environment } from '../../environments/environment.prod';
+import { Modal } from '../models/modal.model';
+import { ModalService } from '../services/modal.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpErrorInterceptor {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouteInfo } from 'app/models/sidebar.model';
+import { RouteInfo } from '../models/sidebar.model';
 
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: '主頁', icon: 'nc-bank', class: ''},
@@ -14,7 +14,6 @@ export const ROUTES: RouteInfo[] = [
 ];
 
 @Component({
-    moduleId: module.id,
     selector: 'app-sidebar-cmp',
     templateUrl: 'sidebar.component.html',
 })

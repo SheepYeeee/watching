@@ -1,13 +1,11 @@
-import { Component, OnInit, Renderer, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
-import { Location} from '@angular/common';
-import { environment } from 'environments/environment.prod';
-import { Modal } from 'app/models/modal.model';
-import { ModalService } from 'app/services/modal.service';
-
+import { environment } from '../../../environments/environment.prod';
+import { Modal } from '../../models/modal.model';
+import { ModalService } from '../../services/modal.service';
+import { Location } from '@angular/common';
 @Component({
-    moduleId: module.id,
     selector: 'navbar-cmp',
     templateUrl: 'navbar.component.html'
 })
@@ -22,10 +20,10 @@ export class NavbarComponent implements OnInit{
     private modalService: ModalService;
 
     public isCollapsed = true;
-    @ViewChild("navbar-cmp", {static: false}) button;
+    @ViewChild("navbar-cmp") button;
 
 
-    constructor(location:Location, private renderer : Renderer, private element : ElementRef, private router: Router) {
+    constructor(location:Location, private renderer : Renderer2, private element : ElementRef, private router: Router) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;

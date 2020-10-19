@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { TeacherService } from 'app/services/teacher.service';
+import { TeacherService } from '../../services/teacher.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { environment } from 'environments/environment.prod';
-import { ExamInfo } from 'app/models/examInfo.model';
-import { Modal } from 'app/models/modal.model';
-import { ModalService } from 'app/services/modal.service';
+import { environment } from '../../../environments/environment.prod';
+import { ExamInfo } from '../../models/examInfo.model';
+import { Modal } from '../../models/modal.model';
+import { ModalService } from '../../services/modal.service';
 import { takeUntil, switchMap } from 'rxjs/operators';
 import { Subject, Observable, interval } from 'rxjs';
 
@@ -13,7 +13,6 @@ import { Subject, Observable, interval } from 'rxjs';
 
 @Component({
     selector: 'app-teacherExamScreen',
-    moduleId: module.id,
     templateUrl: 'teacherExamScreen.component.html'
 })
 

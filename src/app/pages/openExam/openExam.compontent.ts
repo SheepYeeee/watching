@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Modal } from 'app/models/modal.model';
-import { environment } from 'environments/environment.prod';
-import { Teacher } from 'app/models/teacher.model';
+import { Modal } from '../../models/modal.model';
+import { Teacher } from '../../models/teacher.model';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalService } from 'app/services/modal.service';
-import { TeacherService } from 'app/services/teacher.service';
+import { ModalService } from '../../services/modal.service';
+import { TeacherService } from '../../services/teacher.service';
 
 
 @Component({
     selector: 'app-openexam',
-    moduleId: module.id,
     templateUrl: 'openExam.component.html'
 })
 
