@@ -80,7 +80,7 @@ export class TeacherService {
    * @memberof TeacherService
    */
   extendExam(examInfo: object) {
-    return this.http.put(`${environment.baseUrl}/teacher/extendExam`, examInfo);
+    return this.http.post(`${environment.baseUrl}/teacher/extendExam`, examInfo);
   }
 
   /**
@@ -90,7 +90,7 @@ export class TeacherService {
    * @memberof TeacherService
    */
   closeExam(examInfo: object) {
-    return this.http.put(`${environment.baseUrl}/teacher/closeExam`, examInfo);
+    return this.http.post(`${environment.baseUrl}/teacher/closeExam`, examInfo);
   }
 
 }
