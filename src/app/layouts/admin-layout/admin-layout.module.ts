@@ -22,6 +22,7 @@ import { StudentRecordComponent } from '../../pages/studentRecord/studentRecord.
 import { TeacherRecordComponent } from '../../pages/teacherRecord/teacherRecord.component';
 import { StudentExamScreenComponent } from '../../pages/studentExamScreen/studentExamScreen.component';
 import { CommonModule } from '@angular/common';
+import { IndexComponent } from '../../pages/index/index.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { CommonModule } from '@angular/common';
   declarations: [
     DashboardComponent,
     OpenExamComponent,
+    IndexComponent,
     EnterExamComponent,
     StudentRecordComponent,
     TeacherRecordComponent,

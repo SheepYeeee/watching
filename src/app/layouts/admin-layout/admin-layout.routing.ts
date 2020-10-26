@@ -7,9 +7,10 @@ import { TeacherExamScreenComponent } from '../../pages/teacherExamScreen/teache
 import { StudentRecordComponent } from '../../pages/studentRecord/studentRecord.component';
 import { TeacherRecordComponent } from '../../pages/teacherRecord/teacherRecord.component';
 import { StudentExamScreenComponent } from '../../pages/studentExamScreen/studentExamScreen.component';
+import { IndexComponent } from '../../pages/index/index.component';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',      component: DashboardComponent },
+    { path: 'index',      component: IndexComponent },
     { path: 'openExam',          component: OpenExamComponent },
     { path: 'enterExam',          component: EnterExamComponent },
     { path: 'teacherRecord',          component: TeacherRecordComponent },

@@ -1,17 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { RouteInfo } from '../models/sidebar.model';
+export let ROUTES:RouteInfo[];
+if(localStorage.getItem('auth')=='9'){
+    ROUTES = [
+        { path: '/dashboard', title: '主頁', icon: 'fa fa-bank', class: ''},
+        { path: '/openExam', title: '開啟考場', icon: 'fa fa-user-circle', class: '' },
+        { path: '/teacherExamScreen', title: '教師端監考畫面', icon: 'fa fa-eye', class: '' },
+    
+    ];   
+}else if(localStorage.getItem('auth')=='1'){
+    ROUTES = [
+        { path: '/dashboard', title: '主頁', icon: 'fa fa-bank', class: ''},
+        { path: '/enterExam', title: '進入考場', icon: 'fa fa-sign-in', class: '' },
+        { path: '/studentExamScreen', title: '學生端監考畫面', icon: 'fa fa-eye', class: '' },
+    
+    ];  
+}
 
-export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: '主頁', icon: 'nc-bank', class: ''},
-    // { path: '/user', title: '個人資料', icon: 'nc-badge', class: ''},
-    { path: '/openExam', title: '開啟考場', icon: 'nc-hat-3', class: '' },
-    { path: '/enterExam', title: '進入考場', icon: 'nc-user-run', class: '' },
-    { path: '/studentExamScreen', title: '學生端監考畫面', icon: 'nc-camera-compact', class: '' },
-    { path: '/teacherExamScreen', title: '教師端監考畫面', icon: 'nc-camera-compact', class: '' },
-    // { path: '/studentRecord', title: '學生考試紀錄', icon: 'nc-paper', class: '' },
-    // { path: '/teacherRecord', title: '老師考試紀錄', icon: 'nc-paper', class: '' },
 
-];
 
 @Component({
     selector: 'app-sidebar-cmp',

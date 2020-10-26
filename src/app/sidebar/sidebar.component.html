@@ -13,7 +13,7 @@
     <ul class="nav">
         <li *ngFor="let menuItem of menuItems" routerlinkactive="active" class="{{menuItem.class}}">
           <a [routerLink]="[menuItem.path]" (click)="isCollapsed = !isCollapsed" aria-expanded="false" data-toggle="collapse">
-            <i class="nc-icon {{menuItem.icon}}"></i>
+            <i style="color: #000;" class=" {{menuItem.icon}}"></i>
             <p>{{menuItem.title}}</p>
           </a>
           <ul *ngFor="let child of menuItem?.child" class="sidebar-child">
