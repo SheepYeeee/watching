@@ -8,6 +8,7 @@ import { Modal } from '../../models/modal.model';
 import { ModalService } from '../../services/modal.service';
 import { takeUntil, switchMap } from 'rxjs/operators';
 import { Subject, Observable, interval } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 
@@ -18,12 +19,16 @@ import { Subject, Observable, interval } from 'rxjs';
 
 export class TeacherExamScreenComponent implements OnInit, OnDestroy {
 
+    public intervallTimer = interval(5000);
+    examData: any;
     tableData: ExamInfo;
-
     studentList: any;
     LogList: any;
+    isEndTime: any;
     destroy$: Subject<boolean> = new Subject<boolean>();
     destroyLog$: Subject<boolean> = new Subject<boolean>();
+   
+    
 
     /** 老師延長考試的表單 */
     extendExamForm: any = this.fb.group({
@@ -33,7 +38,8 @@ export class TeacherExamScreenComponent implements OnInit, OnDestroy {
     constructor(
       private teacherService: TeacherService,
       private fb: FormBuilder,
-      private modalService: ModalService
+      private modalService: ModalService,
+      private router: Router,
     ) { }
 
     ngOnInit() {
@@ -51,6 +57,12 @@ export class TeacherExamScreenComponent implements OnInit, OnDestroy {
                   studentId: '14725836', timestamp: '2020/06/06 13:37', probability: '30%'}
             ]
         }
+        this.examData = {
+          examName: localStorage.getItem('examName'),
+          examStartTime: localStorage.getItem('examStartTime'),
+          examEndTime: localStorage.getItem('examEndTime'),
+          examCount: localStorage.getItem('examCount')
+        }
 
         // 監聽考場學生名單
         this.studentList = interval(1000)
@@ -65,6 +77,22 @@ export class TeacherExamScreenComponent implements OnInit, OnDestroy {
           .pipe(switchMap((_: number) => this.teacherService.examLog()))
           .subscribe(
             (data: any) => console.log(data),
+            (error: any) => console.log(error)
+          );
+
+        // 監聽考場結束了沒
+        this.isEndTime = interval(1000)
+          .pipe(switchMap((_: number) => this.teacherService.isExamFinish()))
+          .subscribe(
+            (data: any) => {
+              if(data.message===true){
+                this.studentList.unsubscribe();
+                this.LogList.unsubscribe();
+                this.isEndTime.unsubscribe();
+                this.openMessageModal(`考試時間結束!`);
+              }
+              
+            },
             (error: any) => console.log(error)
           );
 
@@ -100,7 +128,7 @@ export class TeacherExamScreenComponent implements OnInit, OnDestroy {
       .subscribe(
         (data: any) => {
           localStorage.setItem('examEndTime', this.ef.examEndTime.value);
-          this.openMessageModal(`${data.message}，
+          this.openMessageModal(`${data.message.message}，
           考試時間變更為${localStorage.getItem('examStartTime')}~${localStorage.getItem('examEndTime')}`);
         }
       )
@@ -126,7 +154,8 @@ export class TeacherExamScreenComponent implements OnInit, OnDestroy {
       .subscribe(
         (data: any) => {
           localStorage.setItem('examEndTime', (endTime.getHours().toString()) + ':' + (endTime.getMinutes().toString()));
-          this.openMessageModal(`${data.message}`);
+          this.openMessageModal(`${data.message.message}`);
+
         }
       )
 

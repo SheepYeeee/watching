@@ -74,6 +74,15 @@ export class TeacherService {
   }
 
   /**
+   * 教師端確認考試是否結束
+   *
+   * @memberof TeacherService
+   */
+  isExamFinish() {
+    return this.http.get(`${environment.baseUrl}/teacher/isExamFinish`);
+  }
+
+  /**
    * 教師延長考試
    *
    * @returns

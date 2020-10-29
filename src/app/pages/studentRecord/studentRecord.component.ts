@@ -31,12 +31,12 @@ export class StudentRecordComponent implements OnInit {
    */
   studentGetRecordList() {
       // 學生查看考試紀錄
-      this.studentService.recordList()
-      .subscribe(
-        (data: DataRows[]) => {
-          this.records = data;
-        }
-      )
+      // this.studentService.recordList()
+      // .subscribe(
+      //   (data: DataRows[]) => {
+      //     this.records = data;
+      //   }
+      // )
   }
 
 }

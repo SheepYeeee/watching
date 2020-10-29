@@ -65,9 +65,13 @@ export class EnterExamComponent implements OnInit {
           localStorage.setItem('examName', data.examName);
           localStorage.setItem('examStartTime', data.examStartTime);
           localStorage.setItem('examEndTime', data.examEndTime);
+          localStorage.setItem('teacherIp', this.f.teacherIP.value);
 
           this.openMessageModal(`成功進入考場，考試時間為${data.examStartTime} ~ ${data.examEndTime}`);
-          // location.reload();
+          
+          setTimeout(() => {
+            this.router.navigate(['studentExamScreen']);
+          }, 500);
         }
       )
   }

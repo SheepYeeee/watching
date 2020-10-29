@@ -42,17 +42,28 @@ export class StudentService {
    * @returns
    * @memberof StudentService
    */
-  enterExam(examInfo: object) {
-    return this.http.post(`${environment.baseUrl}/student/enterExam`, examInfo);
+  enterExam(examInfo: any) {
+    console.log(examInfo)
+    return this.http.post(`http://${examInfo.teacherIP}:3000/watching/api/v1/student/enterExam`, examInfo);
+  }
+
+
+  /**
+   * 學生端與教師端確認連現狀控
+   * @memberof StudentService
+   * @param examInfo 
+   */
+  sTtConnection(teacherIP: string) {
+    return this.http.get(`http://${teacherIP}:3000/watching/api/v1/student/sTtConnection`);
   }
 
   /**
-   * 學生查看考試紀錄
-   *
+   * 學生端傳送作弊訊息給教師端
    * @memberof StudentService
+   * @param examInfo 
    */
-  recordList() {
-    return this.http.get(`${environment.baseUrl}/student/recordList`);
+  cheatLog(teacherIP: string,cheat: any) {
+    return this.http.post(`http://${teacherIP}:3000/watching/api/v1/student/cheatLog`, cheat);
   }
 
   /**
