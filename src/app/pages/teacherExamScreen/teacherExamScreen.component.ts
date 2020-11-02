@@ -27,6 +27,7 @@ export class TeacherExamScreenComponent implements OnInit, OnDestroy {
     isEndTime: any;
     destroy$: Subject<boolean> = new Subject<boolean>();
     destroyLog$: Subject<boolean> = new Subject<boolean>();
+    imgArr: any;
    
     
 
@@ -34,6 +35,16 @@ export class TeacherExamScreenComponent implements OnInit, OnDestroy {
     extendExamForm: any = this.fb.group({
       examEndTime: ['', Validators.required],
     });
+
+    /**
+     * 打開圖片modal
+     *
+     * @memberof TeacherExamScreenComponent
+     */
+    showModal(i) {
+      this.imgArr = this.LogList[i].cheatImages;
+      $('#showImg').modal('show');
+    }
 
     constructor(
       private teacherService: TeacherService,
@@ -68,7 +79,9 @@ export class TeacherExamScreenComponent implements OnInit, OnDestroy {
         this.studentList = interval(1000)
           .pipe(switchMap((_: number) => this.teacherService.examStudentList()))
           .subscribe(
-            (data: any) => console.log(data),
+            (data: any) => {
+              this.studentList = data;
+            },
             (error: any) => console.log(error)
           );
 
@@ -76,7 +89,9 @@ export class TeacherExamScreenComponent implements OnInit, OnDestroy {
         this.LogList = interval(1000)
           .pipe(switchMap((_: number) => this.teacherService.examLog()))
           .subscribe(
-            (data: any) => console.log(data),
+            (data: any) => {
+              this.LogList = data;
+            },
             (error: any) => console.log(error)
           );
 

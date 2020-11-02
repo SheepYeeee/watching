@@ -40,8 +40,8 @@ export class StudentExamScreenComponent implements OnInit {
     }
 
     let studentService = this.studentService;
-    function cheatLog(cheat: any) {
-      studentService.cheatLog(localStorage.getItem('teacherIp'), cheat)
+    function cheatLog(teacherIp: string, cheat: any) {
+      studentService.cheatLog(teacherIp, cheat)
         .subscribe(
           (data: any) => {
             console.log(data)

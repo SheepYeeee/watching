@@ -63,7 +63,9 @@ export class StudentService {
    * @param examInfo 
    */
   cheatLog(teacherIP: string,cheat: any) {
-    return this.http.post(`http://${teacherIP}:3000/watching/api/v1/student/cheatLog`, cheat);
+    console.log(teacherIP);
+    console.log(cheat);
+    return this.http.post(`http://${teacherIP}:3000/watching/api/v1/teacher/cheatPic`, cheat);
   }
 
   /**

@@ -12,7 +12,6 @@ import * as posenet from '@tensorflow-models/posenet';
 import clm from 'clmtrackr';
 import { StudentService } from '../../../services/student.service';
 import { ClassMethod } from '@angular/compiler';
-import { AsyncLocalStorage } from 'async_hooks';
 
 export class CheatDetectModel{
   guiState: Object;
@@ -453,7 +452,6 @@ export class CheatDetectModel{
           cheatProbability: 0.9,
           cheatImages: data
         }
-        console.log(payload);
         
         let service: StudentService;
         // 學生傳送作弊機率

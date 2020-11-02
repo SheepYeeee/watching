@@ -11,6 +11,7 @@
                 </div>
 
               <div class="float-md-right">
+                  <button class="btn btn-outline-primary" data-toggle="modal" data-target="#stundentList">學生名單</button>
                   <button class="btn btn-outline-primary" data-toggle="modal" data-target="#extendModal">延長考試</button>
                   <button class="btn btn-outline-primary" data-toggle="modal" data-target="#closeModal">關閉考場</button>
               </div>
@@ -19,20 +20,20 @@
               <div class="table-responsive">
                   <table class="table">
                       <thead class="text-primary">
-                          <th *ngFor="let item of tableData.headerRow">
-                              {{item}}
-                          </th>
+                          <th >學生學號</th>
+                          <th >學生姓名</th>
+                          <th >作弊時間</th>
+                          <th >作弊機率</th>
+                          <th >查看照片</th>
                       </thead>
                       <tbody>
-                          <tr *ngFor="let rows of tableData.dataRows">
-                              <td>{{rows.connectionStatus}}</td>
-                              <td>{{rows.ip}}</td>
-                              <td>{{rows.studentName}}</td>
+                          <tr *ngFor="let rows of LogList; let i = index">
                               <td>{{rows.studentId}}</td>
-                              <td>{{rows.timestamp}}</td>
+                              <td>{{rows.studentName}}</td>
+                              <td>{{rows.time}}</td>
                               <td>{{rows.probability}}</td>
                               <td>
-                                  <button class="btn btn-primary btn-fab btn-icon btn-round" data-toggle="modal" data-target="#showImg">
+                                  <button class="btn btn-primary btn-fab btn-icon btn-round" (click)="showModal(i)">
                                       <i class="fa fa-eye"></i>
                                   </button>
                               </td>
@@ -63,38 +64,12 @@
                       <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
                   </ol>
                   <div class="carousel-inner">
-                      <div class="carousel-item active">
+                      <div class="carousel-item" *ngFor="let rows of imgArr">
                           <img
-                              src="https://scontent-atl3-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/89292457_2714602878587480_1053780983376694745_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=108&_nc_ohc=62j088OBBU8AX-Jcg2P&oh=52d8d4b9b67a8a918fa47d950149b9ad&oe=5EDCB5FD"
+                              src={{rows}}
                               class="d-block w-100"
                               alt="..."
                           />
-                          <div class="carousel-caption d-none d-md-block">
-                              <h5>2020-05-12 09:40:12</h5>
-                              <p>作弊機率 70%</p>
-                          </div>
-                      </div>
-                      <div class="carousel-item">
-                          <img
-                              src="https://scontent-atl3-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/89292457_2714602878587480_1053780983376694745_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=108&_nc_ohc=62j088OBBU8AX-Jcg2P&oh=52d8d4b9b67a8a918fa47d950149b9ad&oe=5EDCB5FD"
-                              class="d-block w-100"
-                              alt="..."
-                          />
-                          <div class="carousel-caption d-none d-md-block">
-                              <h5>2020-05-12 09:40:14</h5>
-                              <p>作弊機率 70%</p>
-                          </div>
-                      </div>
-                      <div class="carousel-item">
-                          <img
-                              src="https://scontent-atl3-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/89292457_2714602878587480_1053780983376694745_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=108&_nc_ohc=62j088OBBU8AX-Jcg2P&oh=52d8d4b9b67a8a918fa47d950149b9ad&oe=5EDCB5FD"
-                              class="d-block w-100"
-                              alt="..."
-                          />
-                          <div class="carousel-caption d-none d-md-block">
-                              <h5>2020-05-12 09:40:16</h5>
-                              <p>作弊機率 70%</p>
-                          </div>
                       </div>
                   </div>
                   <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
@@ -119,7 +94,7 @@
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="exampleModalLabel">結束考試</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
@@ -139,7 +114,7 @@
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="exampleModalLabel">延長考試</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
@@ -158,3 +133,38 @@
       </div>
   </div>
 </div>
+
+<!-- stundentList  Modal -->
+<div class="modal fade" id="stundentList" tabindex="-1" role="dialog" aria-labelledby="stundentListLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="height: 500px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">學生名單</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="text-primary">
+                            <th >學生IP</th>
+                            <th >學生學號</th>
+                            <th >學生姓名</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let rows of studentList">
+                                <td>{{rows.studentIP}}</td>
+                                <td>{{rows.studentId}}</td>
+                                <td>{{rows.studentName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" data-dismiss="modal" aria-label="Close" class="btn btn-primary">關閉</button>
+            </div>
+        </div>
+    </div>
+  </div>
