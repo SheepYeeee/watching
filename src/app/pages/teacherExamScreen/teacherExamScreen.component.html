@@ -30,7 +30,7 @@
                           <tr *ngFor="let rows of LogList; let i = index">
                               <td>{{rows.studentId}}</td>
                               <td>{{rows.studentName}}</td>
-                              <td>{{rows.time}}</td>
+                              <td>{{rows.time | date:"HH:mm:ss"}}</td>
                               <td>{{rows.probability}}</td>
                               <td>
                                   <button class="btn btn-primary btn-fab btn-icon btn-round" (click)="showModal(i)">
@@ -56,6 +56,7 @@
                   <span aria-hidden="true">&times;</span>
               </button>
           </div>
+
           <div class="modal-body">
               <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" data-interval="2000">
                   <ol class="carousel-indicators">
@@ -63,8 +64,9 @@
                       <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
                       <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
                   </ol>
+
                   <div class="carousel-inner">
-                      <div class="carousel-item" *ngFor="let rows of imgArr">
+                      <div class="carousel-item active" *ngFor="let rows of imgArr;let isFirst = first" [class.active]="isFirst">
                           <img
                               src={{rows}}
                               class="d-block w-100"
@@ -81,10 +83,12 @@
                       <span class="sr-only">Next</span>
                   </a>
               </div>
+
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
           </div>
+
       </div>
   </div>
 </div>

@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class StudentService {
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
 
   /**
@@ -27,7 +28,6 @@ export class StudentService {
   /**
    *
    * 刷新token
-   * @param {*} httpOptions
    * @returns {Observable<any>}
    * @memberof StudentService
    */
@@ -51,7 +51,7 @@ export class StudentService {
   /**
    * 學生端與教師端確認連現狀控
    * @memberof StudentService
-   * @param examInfo 
+   * @param teacherIP
    */
   sTtConnection(teacherIP: string) {
     return this.http.get(`http://${teacherIP}:3000/watching/api/v1/student/sTtConnection`);
@@ -60,9 +60,10 @@ export class StudentService {
   /**
    * 學生端傳送作弊訊息給教師端
    * @memberof StudentService
-   * @param examInfo 
+   * @param teacherIP
+   * @param cheat
    */
-  cheatLog(teacherIP: string,cheat: any) {
+  cheatLog(teacherIP: string, cheat: any) {
     console.log(teacherIP);
     console.log(cheat);
     return this.http.post(`http://${teacherIP}:3000/watching/api/v1/teacher/cheatPic`, cheat);
@@ -71,7 +72,7 @@ export class StudentService {
   /**
    * 學生切換靈敏度
    * @memberof StudentService
-   * @param examInfo 
+   * @param examInfo
    */
   setSensitivity(examInfo: object) {
     return this.http.get(`${environment.baseUrl}/student/setSensitivity`, examInfo);

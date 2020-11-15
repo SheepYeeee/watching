@@ -10,10 +10,10 @@ import {drawPoint, toggleLoadingUI} from './util';
 // import Stats from 'stats.js';
 import * as posenet from '@tensorflow-models/posenet';
 import clm from 'clmtrackr';
-import { StudentService } from '../../../services/student.service';
-import { ClassMethod } from '@angular/compiler';
+import {StudentService} from '../../../services/student.service';
+import {ClassMethod} from '@angular/compiler';
 
-export class CheatDetectModel{
+export class CheatDetectModel {
   guiState: Object;
   // TODO find datatype
   ctrack: any;
@@ -30,7 +30,7 @@ export class CheatDetectModel{
 
   cheatLog: Function;
 
-  constructor(videoElementId: string, canvasElementIdTFJS: string, canvasElementIdCLM: string, cheatLog: Function){
+  constructor(videoElementId: string, canvasElementIdTFJS: string, canvasElementIdCLM: string, cheatLog: Function) {
     // Setup start
     this.videoWidth = 640;
     this.videoHeight = 480;
@@ -101,7 +101,7 @@ export class CheatDetectModel{
     this.nonCheatingFlag = true;
 
     this.videoElementId = videoElementId;
-    this.canvasElementIdTFJS = canvasElementIdTFJS; 
+    this.canvasElementIdTFJS = canvasElementIdTFJS;
     this.canvasElementIdCLM = canvasElementIdCLM;
 
     this.cheatLog = cheatLog;
@@ -221,6 +221,7 @@ export class CheatDetectModel{
       let flipPoseHorizontal = this.flipPoseHorizontal;
 
       let cheatDetectModel = this;
+
       async function poseDetectionFrame(): Promise<void> {
         // Begin monitoring code for frames per second
         // stats.begin();
@@ -287,8 +288,8 @@ export class CheatDetectModel{
         //   this.draw(canvasCLM);
         // });
 
-        if (cheatDetectModel.TFJSPositions){
-          for(const [key, value] of Object.entries(cheatDetectModel.TFJSPositions)){
+        if (cheatDetectModel.TFJSPositions) {
+          for (const [key, value] of Object.entries(cheatDetectModel.TFJSPositions)) {
             drawPoint(ctxCLM, value['y'], value['x'], 3, 'aqua');
           }
 
@@ -297,8 +298,8 @@ export class CheatDetectModel{
             let distance = cheatDetectModel.checkAllDistance(positions, cheatDetectModel.TFJSPositions);
             let drawFlag = true;
 
-            for(const [key, value] of Object.entries(distance)){
-              if (value > 30){
+            for (const [key, value] of Object.entries(distance)) {
+              if (value > 30) {
                 drawFlag = false;
               }
             }
@@ -309,7 +310,7 @@ export class CheatDetectModel{
 
             cheatDetectModel.cheatDetect(positions, cheatDetectModel.TFJSPositions, drawFlag);
 
-            if (drawFlag){
+            if (drawFlag) {
               cheatDetectModel.ctrack.draw(canvasCLM);
             }
             // console.log(TFJSPositions);
@@ -333,11 +334,11 @@ export class CheatDetectModel{
    */
   parseTFJSPosition(positions: any): Object {
     positions = {
-      nose: positions[0]["position"],
-      leftEye: positions[1]["position"],
-      rightEye: positions[2]["position"],
-      leftEar: positions[3]["position"],
-      rightEar: positions[4]["position"],
+      nose: positions[0]['position'],
+      leftEye: positions[1]['position'],
+      rightEye: positions[2]['position'],
+      leftEar: positions[3]['position'],
+      rightEar: positions[4]['position'],
     };
 
     return positions;
@@ -351,22 +352,22 @@ export class CheatDetectModel{
    */
   parseCLMPosition(positions: any): Object {
     positions = {
-      nose: {x: positions[62][0], y:positions[62][1]},
-      rightEye: {x: positions[27][0], y:positions[27][1]},
-      leftEye: {x: positions[32][0], y:positions[32][1]},
-      rightEar: {x: positions[1][0], y:positions[1][1]},
-      leftEar: {x: positions[13][0], y:positions[13][1]},
+      nose: {x: positions[62][0], y: positions[62][1]},
+      rightEye: {x: positions[27][0], y: positions[27][1]},
+      leftEye: {x: positions[32][0], y: positions[32][1]},
+      rightEar: {x: positions[1][0], y: positions[1][1]},
+      leftEar: {x: positions[13][0], y: positions[13][1]},
     };
 
     return positions;
   }
 
   /**
-   * 
-   * @param position1 
-   * @param position2 
+   *
+   * @param position1
+   * @param position2
    */
-  distanceTwoDim(position1: Object, position2: Object): number{
+  distanceTwoDim(position1: Object, position2: Object): number {
     let a1 = Math.pow(position1['x'] - position2['x'], 2);
     let a2 = Math.pow(position1['y'] - position2['y'], 2);
 
@@ -374,14 +375,14 @@ export class CheatDetectModel{
   }
 
   /**
-   * 
-   * @param positions1 
-   * @param positions2 
+   *
+   * @param positions1
+   * @param positions2
    */
-  checkAllDistance(positions1: Object, positions2: Object): Object{
+  checkAllDistance(positions1: Object, positions2: Object): Object {
     let result = {};
 
-    for(const [key, value] of Object.entries(positions1)){
+    for (const [key, value] of Object.entries(positions1)) {
       result[key] = this.distanceTwoDim(positions1[key], positions2[key]);
     }
 
@@ -389,29 +390,29 @@ export class CheatDetectModel{
   }
 
   /**
-   * 
-   * @param CLMPositions 
-   * @param TFJSPositions 
-   * @param drawFlag 
+   *
+   * @param CLMPositions
+   * @param TFJSPositions
+   * @param drawFlag
    */
-  cheatDetect(CLMPositions: Object, TFJSPositions: Object, drawFlag: boolean): void{
+  cheatDetect(CLMPositions: Object, TFJSPositions: Object, drawFlag: boolean): void {
     const sensitivity = 30;
 
     const headTurnLeftFlag = this.distanceTwoDim(TFJSPositions['leftEye'], TFJSPositions['leftEar']) < sensitivity;
     const headTurnRightFlag = this.distanceTwoDim(TFJSPositions['rightEye'], TFJSPositions['rightEar']) < sensitivity;
 
     // console.log(nonCheatingFlag);
-    if(this.nonCheatingFlag){
-      if(drawFlag){
+    if (this.nonCheatingFlag) {
+      if (drawFlag) {
         // TODO TFJS position combine postions
         const eyeTurnLeftFlag = false;
         const eyeTurnRightFlag = false;
 
-        if(headTurnLeftFlag || headTurnRightFlag || eyeTurnLeftFlag || eyeTurnRightFlag){
+        if (headTurnLeftFlag || headTurnRightFlag || eyeTurnLeftFlag || eyeTurnRightFlag) {
           this.callBackend();
         }
-      }else{
-        if(headTurnLeftFlag || headTurnRightFlag){
+      } else {
+        if (headTurnLeftFlag || headTurnRightFlag) {
           this.callBackend();
         }
       }
@@ -419,8 +420,8 @@ export class CheatDetectModel{
 
   }
 
-  // TODO temp 
-  async callBackend(){
+  // TODO temp
+  async callBackend() {
     const canvas = document.getElementById(this.canvasElementIdCLM);
     const video = document.getElementById(this.videoElementId);
     const timeInterval = 200;
@@ -429,7 +430,7 @@ export class CheatDetectModel{
 
     this.nonCheatingFlag = false;
 
-    if (isCanvas(canvas) && isVideo(video)){
+    if (isCanvas(canvas) && isVideo(video)) {
       canvas.width = this.videoWidth;
       canvas.height = this.videoHeight;
       const ctx = canvas.getContext('2d');
@@ -439,26 +440,27 @@ export class CheatDetectModel{
           ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
           let dataURI = canvas.toDataURL('image/jpeg');
           data.push(dataURI);
-          
+
         }, timeInterval * counter)
       }
 
       setTimeout(() => {
         // TODO post to backend
+        const cheatTime = Date.now();
         let payload = {
           studentId: localStorage.getItem('studentId'),
           studentName: localStorage.getItem('studentName'),
-          cheatTime: Date.now(),
+          cheatTime: cheatTime,
           cheatProbability: 0.9,
           cheatImages: data
         }
-        
+
         let service: StudentService;
         // 學生傳送作弊機率
         this.cheatLog(localStorage.getItem('teacherIp'), payload);
         this.nonCheatingFlag = true;
       }, timeInterval * snapNumber)
     }
-    console.log("someone cheat!!!!!!")
+    console.log('someone cheat!!!!!!')
   }
 }

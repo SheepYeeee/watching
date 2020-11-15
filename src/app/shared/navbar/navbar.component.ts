@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
     templateUrl: 'navbar.component.html'
 })
 
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
     private listTitles: any[];
     location: Location;
     private nativeElement: Node;
@@ -20,19 +20,19 @@ export class NavbarComponent implements OnInit{
     private modalService: ModalService;
 
     public isCollapsed = true;
-    @ViewChild("navbar-cmp") button;
+    @ViewChild('navbar-cmp') button;
 
 
-    constructor(location:Location, private renderer : Renderer2, private element : ElementRef, private router: Router) {
+    constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
 
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.listTitles = ROUTES.filter(listTitle => listTitle);
-        var navbar : HTMLElement = this.element.nativeElement;
+        let navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
         this.router.events.subscribe((event) => {
           this.sidebarClose();
@@ -45,13 +45,13 @@ export class NavbarComponent implements OnInit{
      * @returns
      * @memberof NavbarComponent
      */
-    getTitle(){
-      var titlee = this.location.prepareExternalUrl(this.location.path());
-      if(titlee.charAt(0) === '#'){
+    getTitle() {
+      let titlee = this.location.prepareExternalUrl(this.location.path());
+      if (titlee.charAt(0) === '#') {
           titlee = titlee.slice( 1 );
       }
-      for(var item = 0; item < this.listTitles.length; item++){
-          if(this.listTitles[item].path === titlee){
+      for (let item = 0; item < this.listTitles.length; item++) {
+          if (this.listTitles[item].path === titlee) {
               return this.listTitles[item].title;
           }
       }
@@ -106,7 +106,7 @@ export class NavbarComponent implements OnInit{
         const toggleButton = this.toggleButton;
         const html = document.getElementsByTagName('html')[0];
         const mainPanel =  <HTMLElement>document.getElementsByClassName('main-panel')[0];
-        setTimeout(function(){
+        setTimeout(function() {
             toggleButton.classList.add('toggled');
         }, 500);
 
@@ -120,7 +120,9 @@ export class NavbarComponent implements OnInit{
         const html = document.getElementsByTagName('html')[0];
         const mainPanel =  <HTMLElement>document.getElementsByClassName('main-panel')[0];
         if (window.innerWidth < 991) {
-          setTimeout(function(){
+          setTimeout(function() {
+            // FIXME mainPanel在教師端剛登入時會變成undefined
+            console.log(mainPanel);
             mainPanel.style.position = '';
           }, 500);
         }
@@ -135,7 +137,7 @@ export class NavbarComponent implements OnInit{
       if (!this.isCollapsed) {
         navbar.classList.remove('navbar-transparent');
         navbar.classList.add('bg-white');
-      }else{
+      } else {
         navbar.classList.add('navbar-transparent');
         navbar.classList.remove('bg-white');
       }
