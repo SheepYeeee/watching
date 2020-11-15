@@ -16,7 +16,6 @@ if (localStorage.getItem('auth') === '9') {
     {path: '/dashboard', title: '主頁', icon: 'fa fa-bank', class: ''},
     {path: '/enterExam', title: '進入考場', icon: 'fa fa-sign-in', class: ''},
     {path: '/studentExamScreen', title: '學生端監考畫面', icon: 'fa fa-eye', class: ''},
-
   ];
 }
 // else {
