@@ -8,6 +8,7 @@ import { Student } from '../models/student.model';
 import { StudentService } from '../services/student.service';
 import { environment } from '../../environments/environment.prod';
 import { AuthService } from '../services/auth.service';
+import { async } from 'rxjs/internal/scheduler/async';
 
 
 @Component({
@@ -114,7 +115,7 @@ export class LoginComponent implements OnInit {
    *
    * @memberof LoginComponent
    */
-  studentLogin() {
+  async studentLogin() {
 
     /** 學生登入所傳入的資料 */
     const loginInfo: any = {
@@ -125,15 +126,30 @@ export class LoginComponent implements OnInit {
     // 學生登入
     this.studentService.studentLogin(loginInfo)
       .subscribe(
-        (data: any) => {
-          this.student.token = data.token;
-          localStorage.setItem(`${environment.keyOfToken}`, this.student.token);
-          localStorage.setItem(`${environment.keyOfStudentId}`, loginInfo.studentId);
-          localStorage.setItem(`${environment.keyOfStudentName}`, loginInfo.studentName);
-          localStorage.setItem(`${environment.auth}`, '1');
-          this.router.navigate(['enterExam']);
+        async (data: any) => {
+
+          let bububu = await this.setsItem(data.token, loginInfo.studentId, loginInfo.studentName, '1');
+          if(bububu){
+            this.router.navigate(['enterExam']);
+          }
+
         }
       )
+  }
+
+  async setsItem(token, id, name, auth){
+    await localStorage.setItem(`${environment.keyOfToken}`, token);
+    await localStorage.setItem(`${environment.keyOfStudentId}`, id);
+    await localStorage.setItem(`${environment.keyOfStudentName}`,name);
+    await localStorage.setItem(`${environment.auth}`, auth);
+    return true
+  }
+
+  async settItem(token, name, auth){
+    await localStorage.setItem(`${environment.keyOfToken}`, token);
+    await localStorage.setItem(`${environment.keyOfTeacherName}`,name);
+    await localStorage.setItem(`${environment.auth}`, auth);
+    return true
   }
 
   /**
@@ -152,11 +168,12 @@ export class LoginComponent implements OnInit {
     this.teacherService.teacherLogin(loginInfo)
       .subscribe(
         (data: any) => {
-          this.teacher.token = data.token;
-          localStorage.setItem(`${environment.keyOfToken}`, this.teacher.token);
-          localStorage.setItem(`${environment.keyOfTeacherName}`, loginInfo.teacherName);
-          localStorage.setItem(`${environment.auth}`, '9');
-          this.router.navigate(['openExam']);
+          let bububu = this.settItem(data.token, loginInfo.teacherName, '9');
+          
+          if(bububu){
+            this.router.navigate(['openExam']);
+          }
+
         }
       )
   }
