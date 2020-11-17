@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { StudentService } from '../../services/student.service';
-import { CheatDetectModel } from './model/combine-model';
+import {Component, OnInit} from '@angular/core';
+import {interval} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
+import {StudentService} from '../../services/student.service';
+import {CheatDetectModel} from './model/combine-model';
 
 interface MyVideoElement extends HTMLVideoElement {
   requestPictureInPicture(): any;
@@ -30,7 +30,8 @@ export class StudentExamScreenComponent implements OnInit {
 
   constructor(
     private studentService: StudentService,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.examData = {
@@ -40,6 +41,7 @@ export class StudentExamScreenComponent implements OnInit {
     }
 
     let studentService = this.studentService;
+
     function cheatLog(teacherIp: string, cheat: any) {
       studentService.cheatLog(teacherIp, cheat)
         .subscribe(
@@ -69,7 +71,7 @@ export class StudentExamScreenComponent implements OnInit {
     let thisStudentExamScreenComponent = this;
 
     if (navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ video: true })
+      navigator.mediaDevices.getUserMedia({video: true})
         .then(function (stream) {
           video.srcObject = stream;
         })
